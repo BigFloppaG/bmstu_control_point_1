@@ -6,6 +6,7 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <algorithm>
 
 struct TaskInfo {
   std::string name;
