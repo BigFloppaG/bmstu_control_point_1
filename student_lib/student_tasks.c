@@ -2,20 +2,20 @@
 #include <stdarg.h>
 #include <stdbool.h>
 
-// Задание 1: Сумма двух чисел (0.5 балл)
-int add(int a, int b) { return 0; }
+// Задание 1: Разность двух чисел (0.5 балл)
+int sub(int a, int b) { return 0; }
 
-// Задание 2: Факториал числа (0.5 балл)
-int factorial(int n) { return 0; }
+// Задание 2: Сумма N чисел (0.5 балл)
+int summ(int n) { return 0; }
 
-// Задание 3: Проверка на простое число (0.5 балла)
-bool isPrime(int n) { return false; }
+// Задание 3: Проверка на совершенное число (0.5 балла)
+bool isPerfect(int n) { return false; }
 
-// Задание 4: Найти максимальный элемент в массиве (0.5 балл)
-int findMax(const int *arr, int size) { return 0; }
+// Задание 4: Найти минимальный элемент в массиве (0.5 балл)
+int findMin(const int *arr, int size) { return 0; }
 
-// Задание 5: Перевернуть строку (0.5 балл)
-void reverseString(const char *str, char *reversed) { return; }
+// Задание 5: Преобразовать строку в заглавные буквы (0.5 балл)
+void toUpperString(const char *str, char *upper) { return; }
 
 // Задание 6: Проверка на палиндром (0.5 балл)
 bool isPalindrome(const char *str) { return false; }
@@ -23,24 +23,24 @@ bool isPalindrome(const char *str) { return false; }
 // Задание 7: Сортировка массива пузырьком (любой простой алгоритм) (0.5 балла)
 void bubbleSort(int *arr, int size) { return; }
 
-// Задание 8: Вычисление НОД двух чисел (0.5 балла)
-int gcd(int a, int b) { return 0; }
+// Задание 8: Вычисление НОК двух чисел (0.5 балла)
+int hcf(int a, int b) { return 0; }
 
-// Задание 9: Вычисление числа Фибоначчи (0.5 балла)
-unsigned int fibonacci(unsigned int n) { return 0; }
+// Задание 9: Вычисление числа Каталана (0.5 балла)
+unsigned int catalan(unsigned int n) { return 0; }
 
-// Задание 10: Перевод числа в шестнадцатеричную строку (0.5 балла)
-void intToHexString(unsigned int number, char *hexString) { return; };
+// Задание 10: Перевод числа в восьмеричную строку (0.5 балла)
+void intToOctalString(unsigned int number, char *octalString) { return; };
 
-// Задание 11: определить правильность скобочной последовательности (5 баллов)
-// Например: '(', ')', NULL -> true; '(', '(', ')', NULL -> false
-bool isValidParentheses(char symbol, ...) { return false; }
+// Задание 11: проверка корректности HTML тегов (5 баллов)
+// Например: "div", "/div", NULL -> true; "div", "span", "/div", NULL -> false
+bool isValidHtml(const char *tag, ...) { return false; }
 
-// Задание 12: реализовать функцию нормализаци Unix пути (5 баллов)
-// Например: "/a/b/../c/./d//" -> "/a/c/d"
-void normalizeUnixPath(const char *path, char *normalizedPath) {
+// Задание 12: реализовать функцию нормализации Windows пути (5 баллов)
+// Например: "C:\\a\\b\\..\\c\\.\\d\\\\" -> "C:\\a\\c\\d"
+void normalizeWindowsPath(const char *path, char *normalizedPath) {
   // Реализация функции нормализации пути
-  // Путь всегда корректен и начинается с '/'
+  // Путь всегда корректен и начинается с диска
   return;
 }
 

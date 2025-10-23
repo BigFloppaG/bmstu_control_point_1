@@ -6,20 +6,20 @@
 extern "C" {
 #endif
 
-/* Задание 1: Сумма двух чисел (0.5 балл) */
-int add(int a, int b);
+/* Задание 1: Разность двух чисел (0.5 балл) */
+int sub(int a, int b);
 
-/* Задание 2: Факториал числа (0.5 балл) */
-int factorial(int n);
+/* Задание 2: Сумма N чисел (0.5 балл) */
+int summ(int n);
 
-/* Задание 3: Проверка на простое число (0.5 балла) */
-bool isPrime(int n);
+/* Задание 3: Проверка на совершенное число (0.5 балла) */
+bool isPerfect(int n);
 
-/* Задание 4: Найти максимальный элемент в массиве (0.5 балл) */
-int findMax(const int *arr, int size);
+/* Задание 4: Найти минимальный элемент в массиве (0.5 балл) */
+int findMin(const int *arr, int size);
 
-/* Задание 5: Перевернуть строку (0.5 балл) */
-void reverseString(const char *str, char *reversed);
+/* Задание 5: Преобразовать строку в заглавные буквы (0.5 балл) */
+void toUpperString(const char *str, char *upper);
 
 /* Задание 6: Проверка на палиндром (0.5 балл) */
 bool isPalindrome(const char *str);
@@ -27,27 +27,27 @@ bool isPalindrome(const char *str);
 /* Задание 7: Сортировка массива пузырьком (0.5 балла) */
 void bubbleSort(int *arr, int size);
 
-/* Задание 8: Вычисление НОД двух чисел (0.5 балла) */
-int gcd(int a, int b);
+/* Задание 8: Вычисление НОК двух чисел (0.5 балла) */
+int hcf(int a, int b);
 
-/* Задание 9: Вычисление числа Фибоначчи (0.5 балла) */
-unsigned int fibonacci(unsigned int n);
+/* Задание 9: Вычисление числа Каталана (0.5 балла) */
+unsigned int catalan(unsigned int n);
 
-/* Задание 10: Перевод числа в шестнадцатеричную строку (0.5 балла) */
-void intToHexString(unsigned int number, char *hexString);
+/* Задание 10: Перевод числа в восьмеричную строку (0.5 балла) */
+void intToOctalString(unsigned int number, char *octalString);
 
-/* Задание 11: Определить правильность скобочной последовательности (5 баллов)
+/* Задание 11: Проверка корректности HTML тегов (5 баллов)
  * Использует variadic arguments, завершается NULL
- * Пример: isValidParentheses('(', ')', NULL) -> true
- *         isValidParentheses('(', '(', ')', NULL) -> false
+ * Пример: isValidHtml("div", "/div", NULL) -> true
+ *         isValidHtml("div", "span", "/div", NULL) -> false
  */
-bool isValidParentheses(char symbol, ...);
+bool isValidHtml(const char *tag, ...);
 
-/* Задание 12: Реализовать функцию нормализации Unix пути (5 баллов)
- * Пример: "/a/b/../c/./d//" -> "/a/c/d"
- * Путь всегда корректен и начинается с '/'
+/* Задание 12: Реализовать функцию нормализации Windows пути (5 баллов)
+ * Пример: "C:\\a\\b\\..\\c\\.\\d\\\\" -> "C:\\a\\c\\d"
+ * Путь всегда корректен и начинается с диска
  */
-void normalizeUnixPath(const char *path, char *normalizedPath);
+void normalizeWindowsPath(const char *path, char *normalizedPath);
 
 /* Задание 13: Реализовать функцию вычисления значения выражения в постфиксной
  * нотации (10 баллов) Пример: "23 34 + 5 *" -> (23 + 34) * 5 = 285
