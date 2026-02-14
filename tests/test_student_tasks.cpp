@@ -5,429 +5,515 @@ extern "C" {
 #include "student_tasks.h"
 }
 
-// ========== Задание 1: Разность двух чисел (0.5 балл) ==========
-TEST(Task01_Sub, PositiveNumbers) {
-  EXPECT_EQ(sub(5, 3), 2);
-  EXPECT_EQ(sub(30, 20), 10);
-  EXPECT_EQ(sub(300, 200), 100);
+// ========== Задание 1: Длина строки (0.5 балла) ==========
+TEST(Task01_StringLength, EmptyString) { EXPECT_EQ(stringLength(""), 0); }
+
+TEST(Task01_StringLength, SingleChar) { EXPECT_EQ(stringLength("a"), 1); }
+
+TEST(Task01_StringLength, NormalStrings) {
+  EXPECT_EQ(stringLength("hello"), 5);
+  EXPECT_EQ(stringLength("world"), 5);
+  EXPECT_EQ(stringLength("test"), 4);
+  EXPECT_EQ(stringLength("programming"), 11);
 }
 
-TEST(Task01_Sub, NegativeNumbers) {
-  EXPECT_EQ(sub(-3, -5), 2);
-  EXPECT_EQ(sub(-5, 10), -15);
-  EXPECT_EQ(sub(10, -5), 15);
+// ========== Задание 2: Копирование строки (0.5 балла) ==========
+TEST(Task02_StringCopy, EmptyString) {
+  char dest[100];
+  stringCopy(dest, "");
+  EXPECT_STREQ(dest, "");
 }
 
-TEST(Task01_Sub, WithZero) {
-  EXPECT_EQ(sub(0, 0), 0);
-  EXPECT_EQ(sub(5, 0), 5);
-  EXPECT_EQ(sub(0, 5), -5);
+TEST(Task02_StringCopy, SingleChar) {
+  char dest[100];
+  stringCopy(dest, "a");
+  EXPECT_STREQ(dest, "a");
 }
 
-// ========== Задание 2: Сумма N чисел (0.5 балл) ==========
-TEST(Task02_Summ, BaseCase) {
-  EXPECT_EQ(summ(0), 0);
-  EXPECT_EQ(summ(1), 1);
+TEST(Task02_StringCopy, NormalStrings) {
+  char dest[100];
+  stringCopy(dest, "hello");
+  EXPECT_STREQ(dest, "hello");
+
+  stringCopy(dest, "world");
+  EXPECT_STREQ(dest, "world");
+
+  stringCopy(dest, "test123");
+  EXPECT_STREQ(dest, "test123");
 }
 
-TEST(Task02_Summ, SmallNumbers) {
-  EXPECT_EQ(summ(2), 3);
-  EXPECT_EQ(summ(3), 6);
-  EXPECT_EQ(summ(4), 10);
-  EXPECT_EQ(summ(5), 15);
+// ========== Задание 3: Конкатенация строк (0.5 балла) ==========
+TEST(Task03_StringConcat, EmptyStrings) {
+  char dest[100] = "";
+  stringConcat(dest, "");
+  EXPECT_STREQ(dest, "");
 }
 
-TEST(Task02_Summ, LargerNumbers) {
-  EXPECT_EQ(summ(6), 21);
-  EXPECT_EQ(summ(10), 55);
-  EXPECT_EQ(summ(100), 5050);
+TEST(Task03_StringConcat, AddToEmpty) {
+  char dest[100] = "";
+  stringConcat(dest, "hello");
+  EXPECT_STREQ(dest, "hello");
 }
 
-// ========== Задание 3: Проверка на совершенное число (0.5 балла) ==========
-TEST(Task03_IsPerfect, PerfectNumbers) {
-  EXPECT_TRUE(isPerfect(6));
-  EXPECT_TRUE(isPerfect(28));
-  EXPECT_TRUE(isPerfect(496));
-  EXPECT_TRUE(isPerfect(8128));
+TEST(Task03_StringConcat, NormalConcat) {
+  char dest[100] = "Hello";
+  stringConcat(dest, " World");
+  EXPECT_STREQ(dest, "Hello World");
+
+  char dest2[100] = "test";
+  stringConcat(dest2, "123");
+  EXPECT_STREQ(dest2, "test123");
 }
 
-TEST(Task03_IsPerfect, NonPerfectNumbers) {
-  EXPECT_FALSE(isPerfect(1));
-  EXPECT_FALSE(isPerfect(4));
-  EXPECT_FALSE(isPerfect(8));
-  EXPECT_FALSE(isPerfect(9));
-  EXPECT_FALSE(isPerfect(12));
-  EXPECT_FALSE(isPerfect(15));
-  EXPECT_FALSE(isPerfect(100));
+// ========== Задание 4: Сравнение строк (0.5 балла) ==========
+TEST(Task04_StringCompare, EqualStrings) {
+  EXPECT_EQ(stringCompare("hello", "hello"), 0);
+  EXPECT_EQ(stringCompare("", ""), 0);
+  EXPECT_EQ(stringCompare("test", "test"), 0);
 }
 
-TEST(Task03_IsPerfect, EdgeCases) {
-  EXPECT_FALSE(isPerfect(0));
-  EXPECT_FALSE(isPerfect(-6));
-  EXPECT_FALSE(isPerfect(-28));
+TEST(Task04_StringCompare, DifferentStrings) {
+  EXPECT_LT(stringCompare("abc", "abd"), 0);
+  EXPECT_GT(stringCompare("abd", "abc"), 0);
+  EXPECT_LT(stringCompare("hello", "world"), 0);
+  EXPECT_GT(stringCompare("world", "hello"), 0);
 }
 
-// ========== Задание 4: Найти минимальный элемент в массиве (0.5 балл)
-// ==========
-TEST(Task04_FindMin, BasicArrays) {
-  int arr1[] = {1, 2, 3, 4, 5};
-  EXPECT_EQ(findMin(arr1, 5), 1);
-
-  int arr2[] = {-5, -2, -10, -1};
-  EXPECT_EQ(findMin(arr2, 4), -10);
-
-  int arr3[] = {42};
-  EXPECT_EQ(findMin(arr3, 1), 42);
+TEST(Task04_StringCompare, DifferentLengths) {
+  EXPECT_LT(stringCompare("abc", "abcd"), 0);
+  EXPECT_GT(stringCompare("abcd", "abc"), 0);
 }
 
-TEST(Task04_FindMin, UnorderedArrays) {
-  int arr1[] = {3, 7, 2, 9, 1};
-  EXPECT_EQ(findMin(arr1, 5), 1);
-
-  int arr2[] = {100, 50, 200, 75};
-  EXPECT_EQ(findMin(arr2, 4), 50);
-
-  int arr3[] = {5, 5, 5, 5};
-  EXPECT_EQ(findMin(arr3, 4), 5);
+// ========== Задание 5: Подсчет символа (0.5 балла) ==========
+TEST(Task05_CountChar, NoOccurrences) {
+  EXPECT_EQ(countChar("hello", 'x'), 0);
+  EXPECT_EQ(countChar("", 'a'), 0);
 }
 
-TEST(Task04_FindMin, MinAtEnd) {
-  int arr[] = {10, 9, 8, 7, 6};
-  EXPECT_EQ(findMin(arr, 5), 6);
+TEST(Task05_CountChar, SingleOccurrence) {
+  EXPECT_EQ(countChar("hello", 'h'), 1);
+  EXPECT_EQ(countChar("world", 'w'), 1);
 }
 
-// ========== Задание 5: Преобразовать строку в заглавные буквы (0.5 балл)
-// ==========
-TEST(Task05_ToUpperString, BasicStrings) {
-  char upper[100];
-
-  toUpperString("hello", upper);
-  EXPECT_STREQ(upper, "HELLO");
-
-  toUpperString("world", upper);
-  EXPECT_STREQ(upper, "WORLD");
-
-  toUpperString("12345", upper);
-  EXPECT_STREQ(upper, "12345");
+TEST(Task05_CountChar, MultipleOccurrences) {
+  EXPECT_EQ(countChar("hello", 'l'), 2);
+  EXPECT_EQ(countChar("banana", 'a'), 3);
+  EXPECT_EQ(countChar("mississippi", 's'), 4);
 }
 
-TEST(Task05_ToUpperString, EdgeCases) {
-  char upper[100];
-
-  toUpperString("", upper);
-  EXPECT_STREQ(upper, "");
-
-  toUpperString("a", upper);
-  EXPECT_STREQ(upper, "A");
+// ========== Задание 6: Подсчет гласных (0.5 балла) ==========
+TEST(Task06_CountVowels, NoVowels) {
+  EXPECT_EQ(countVowels("bcdfg"), 0);
+  EXPECT_EQ(countVowels("xyz"), 0);
+  EXPECT_EQ(countVowels(""), 0);
 }
 
-TEST(Task05_ToUpperString, MixedCaseStrings) {
-  char upper[100];
-
-  toUpperString("Programming", upper);
-  EXPECT_STREQ(upper, "PROGRAMMING");
-
-  toUpperString("Hello World!", upper);
-  EXPECT_STREQ(upper, "HELLO WORLD!");
-
-  toUpperString("Test123", upper);
-  EXPECT_STREQ(upper, "TEST123");
+TEST(Task06_CountVowels, OnlyVowels) {
+  EXPECT_EQ(countVowels("aeiou"), 5);
+  EXPECT_EQ(countVowels("AEIOU"), 5);
 }
 
-// ========== Задание 6: Проверка на палиндром (0.5 балл) ==========
-TEST(Task06_IsPalindrome, Palindromes) {
-  EXPECT_TRUE(isPalindrome(""));
-  EXPECT_TRUE(isPalindrome("a"));
-  EXPECT_TRUE(isPalindrome("aa"));
-  EXPECT_TRUE(isPalindrome("aba"));
-  EXPECT_TRUE(isPalindrome("abba"));
-  EXPECT_TRUE(isPalindrome("racecar"));
-  EXPECT_TRUE(isPalindrome("madam"));
+TEST(Task06_CountVowels, MixedStrings) {
+  EXPECT_EQ(countVowels("hello"), 2); // e, o
+  EXPECT_EQ(countVowels("Hello World"), 3); // e, o, o
+  EXPECT_EQ(countVowels("Programming"), 3); // o, a, i
 }
 
-TEST(Task06_IsPalindrome, NonPalindromes) {
-  EXPECT_FALSE(isPalindrome("ab"));
-  EXPECT_FALSE(isPalindrome("hello"));
-  EXPECT_FALSE(isPalindrome("world"));
-  EXPECT_FALSE(isPalindrome("abcd"));
+// ========== Задание 7: Удаление пробелов (0.5 балла) ==========
+TEST(Task07_RemoveSpaces, NoSpaces) {
+  char result[100];
+  removeSpaces("hello", result);
+  EXPECT_STREQ(result, "hello");
 }
 
-TEST(Task06_IsPalindrome, Numbers) {
-  EXPECT_TRUE(isPalindrome("12321"));
-  EXPECT_TRUE(isPalindrome("1001"));
-  EXPECT_FALSE(isPalindrome("12345"));
+TEST(Task07_RemoveSpaces, OnlySpaces) {
+  char result[100];
+  removeSpaces("   ", result);
+  EXPECT_STREQ(result, "");
 }
 
-// ========== Задание 7: Сортировка массива пузырьком (0.5 балла) ==========
-TEST(Task07_BubbleSort, BasicArrays) {
-  int arr1[] = {5, 2, 8, 1, 9};
-  bubbleSort(arr1, 5);
-  int expected1[] = {1, 2, 5, 8, 9};
-  EXPECT_TRUE(memcmp(arr1, expected1, sizeof(expected1)) == 0);
+TEST(Task07_RemoveSpaces, WithSpaces) {
+  char result[100];
+  removeSpaces("a b c", result);
+  EXPECT_STREQ(result, "abc");
+
+  removeSpaces("  hello  world  ", result);
+  EXPECT_STREQ(result, "helloworld");
 }
 
-TEST(Task07_BubbleSort, AlreadySorted) {
-  int arr[] = {1, 2, 3, 4, 5};
-  bubbleSort(arr, 5);
-  int expected[] = {1, 2, 3, 4, 5};
-  EXPECT_TRUE(memcmp(arr, expected, sizeof(expected)) == 0);
+// ========== Задание 8: Длина первого слова (0.5 балла) ==========
+TEST(Task08_FirstWordLength, NoLeadingSpaces) {
+  EXPECT_EQ(firstWordLength("hello world"), 5);
+  EXPECT_EQ(firstWordLength("test"), 4);
 }
 
-TEST(Task07_BubbleSort, ReverseSorted) {
-  int arr[] = {5, 4, 3, 2, 1};
-  bubbleSort(arr, 5);
-  int expected[] = {1, 2, 3, 4, 5};
-  EXPECT_TRUE(memcmp(arr, expected, sizeof(expected)) == 0);
+TEST(Task08_FirstWordLength, WithLeadingSpaces) {
+  EXPECT_EQ(firstWordLength("  hello world"), 5);
+  EXPECT_EQ(firstWordLength("   test"), 4);
 }
 
-TEST(Task07_BubbleSort, WithNegatives) {
-  int arr[] = {3, -1, 4, -5, 2};
-  bubbleSort(arr, 5);
-  int expected[] = {-5, -1, 2, 3, 4};
-  EXPECT_TRUE(memcmp(arr, expected, sizeof(expected)) == 0);
+TEST(Task08_FirstWordLength, SingleWord) {
+  EXPECT_EQ(firstWordLength("hello"), 5);
+  EXPECT_EQ(firstWordLength("  word"), 4);
 }
 
-TEST(Task07_BubbleSort, SingleElement) {
-  int arr[] = {42};
-  bubbleSort(arr, 1);
-  EXPECT_EQ(arr[0], 42);
+TEST(Task08_FirstWordLength, EmptyOrSpacesOnly) {
+  EXPECT_EQ(firstWordLength(""), 0);
+  EXPECT_EQ(firstWordLength("   "), 0);
 }
 
-// ========== Задание 8: Вычисление НОК двух чисел (0.5 балла) ==========
-TEST(Task08_HCF, BasicCases) {
-  EXPECT_EQ(hcf(12, 8), 24);
-  EXPECT_EQ(hcf(48, 18), 144);
-  EXPECT_EQ(hcf(15, 20), 60);
+// ========== Задание 9: Поиск подстроки (0.5 балла) ==========
+TEST(Task09_FindSubstring, AtBeginning) {
+  EXPECT_EQ(findSubstring("hello world", "hello"), 0);
 }
 
-TEST(Task08_HCF, CoprimeNumbers) {
-  EXPECT_EQ(hcf(17, 19), 323);
-  EXPECT_EQ(hcf(7, 13), 91);
+TEST(Task09_FindSubstring, InMiddle) {
+  EXPECT_EQ(findSubstring("hello world", "wor"), 6);
+  EXPECT_EQ(findSubstring("abcdefgh", "def"), 3);
 }
 
-TEST(Task08_HCF, WithOne) {
-  EXPECT_EQ(hcf(1, 5), 5);
-  EXPECT_EQ(hcf(10, 1), 10);
+TEST(Task09_FindSubstring, NotFound) {
+  EXPECT_EQ(findSubstring("hello world", "xyz"), -1);
+  EXPECT_EQ(findSubstring("test", "testing"), -1);
 }
 
-TEST(Task08_HCF, SameNumbers) {
-  EXPECT_EQ(hcf(5, 5), 5);
-  EXPECT_EQ(hcf(100, 100), 100);
+TEST(Task09_FindSubstring, EmptySubstring) {
+  EXPECT_EQ(findSubstring("hello", ""), 0);
 }
 
-TEST(Task08_HCF, OrderDoesNotMatter) {
-  EXPECT_EQ(hcf(24, 36), hcf(36, 24));
-  EXPECT_EQ(hcf(15, 25), hcf(25, 15));
+// ========== Задание 10: Замена символа (0.5 балла) ==========
+TEST(Task10_ReplaceChar, NoOccurrences) {
+  char result[100];
+  replaceChar("hello", 'x', 'y', result);
+  EXPECT_STREQ(result, "hello");
 }
 
-// ========== Задание 9: Вычисление числа Каталана (0.5 балла) ==========
-TEST(Task09_Catalan, BaseCase) {
-  EXPECT_EQ(catalan(0), 1);
-  EXPECT_EQ(catalan(1), 1);
+TEST(Task10_ReplaceChar, SingleOccurrence) {
+  char result[100];
+  replaceChar("hello", 'h', 'H', result);
+  EXPECT_STREQ(result, "Hello");
 }
 
-TEST(Task09_Catalan, SmallNumbers) {
-  EXPECT_EQ(catalan(2), 2);
-  EXPECT_EQ(catalan(3), 5);
-  EXPECT_EQ(catalan(4), 14);
-  EXPECT_EQ(catalan(5), 42);
-  EXPECT_EQ(catalan(6), 132);
+TEST(Task10_ReplaceChar, MultipleOccurrences) {
+  char result[100];
+  replaceChar("hello", 'l', 'p', result);
+  EXPECT_STREQ(result, "heppo");
+
+  replaceChar("banana", 'a', 'o', result);
+  EXPECT_STREQ(result, "bonono");
 }
 
-TEST(Task09_Catalan, LargerNumbers) {
-  EXPECT_EQ(catalan(7), 429);
-  EXPECT_EQ(catalan(8), 1430);
-  EXPECT_EQ(catalan(9), 4862);
-  EXPECT_EQ(catalan(10), 16796);
+// ========== Задание 11: Trim строки (0.5 балла) ==========
+TEST(Task11_TrimString, NoSpaces) {
+  char result[100];
+  trimString("hello", result);
+  EXPECT_STREQ(result, "hello");
 }
 
-// ========== Задание 10: Перевод числа в восьмеричную строку (0.5 балла)
-// ==========
-TEST(Task10_IntToOctalString, BasicNumbers) {
-  char octal[20];
-
-  intToOctalString(0, octal);
-  EXPECT_STREQ(octal, "0");
-
-  intToOctalString(1, octal);
-  EXPECT_STREQ(octal, "1");
-
-  intToOctalString(7, octal);
-  EXPECT_STREQ(octal, "7");
-
-  intToOctalString(8, octal);
-  EXPECT_STREQ(octal, "10");
+TEST(Task11_TrimString, OnlyLeadingSpaces) {
+  char result[100];
+  trimString("  hello", result);
+  EXPECT_STREQ(result, "hello");
 }
 
-TEST(Task10_IntToOctalString, TwoDigitNumbers) {
-  char octal[20];
-
-  intToOctalString(64, octal);
-  EXPECT_STREQ(octal, "100");
-
-  intToOctalString(255, octal);
-  EXPECT_STREQ(octal, "377");
-
-  intToOctalString(512, octal);
-  EXPECT_STREQ(octal, "1000");
+TEST(Task11_TrimString, OnlyTrailingSpaces) {
+  char result[100];
+  trimString("hello  ", result);
+  EXPECT_STREQ(result, "hello");
 }
 
-TEST(Task10_IntToOctalString, LargerNumbers) {
-  char octal[20];
+TEST(Task11_TrimString, BothSides) {
+  char result[100];
+  trimString("  hello  ", result);
+  EXPECT_STREQ(result, "hello");
 
-  intToOctalString(4095, octal);
-  EXPECT_STREQ(octal, "7777");
-
-  intToOctalString(32768, octal);
-  EXPECT_STREQ(octal, "100000");
-
-  intToOctalString(1000000, octal);
-  EXPECT_STREQ(octal, "3641100");
+  trimString("   test   ", result);
+  EXPECT_STREQ(result, "test");
 }
 
-// ========== Задание 11: Проверка корректности HTML тегов (5 баллов)
-// ==========
-TEST(Task11_ValidHtml, ValidSequences) {
-  EXPECT_TRUE(isValidHtml("div", "/div", NULL));
-  EXPECT_TRUE(isValidHtml("p", "/p", NULL));
-  EXPECT_TRUE(isValidHtml("span", "/span", NULL));
-  EXPECT_TRUE(isValidHtml("div", "p", "/p", "/div", NULL));
-  EXPECT_TRUE(isValidHtml("div", "span", "/span", "/div", NULL));
-  EXPECT_TRUE(isValidHtml("body", "div", "p", "/p", "/div", "/body", NULL));
+TEST(Task11_TrimString, MiddleSpacesPreserved) {
+  char result[100];
+  trimString("  hello world  ", result);
+  EXPECT_STREQ(result, "hello world");
 }
 
-TEST(Task11_ValidHtml, InvalidSequences) {
-  EXPECT_FALSE(isValidHtml("div", "p", "/div", NULL));
-  EXPECT_FALSE(isValidHtml("div", "/span", NULL));
-  EXPECT_FALSE(isValidHtml("div", NULL));
-  EXPECT_FALSE(isValidHtml("/div", NULL));
-  EXPECT_FALSE(isValidHtml("div", "/div", "/div", NULL));
-  EXPECT_FALSE(isValidHtml("span", "div", "/span", "/div", NULL));
+// ========== Задание 12: Переворот слов (1 балл) ==========
+TEST(Task12_ReverseWords, SingleWord) {
+  char result[100];
+  reverseWords("hello", result);
+  EXPECT_STREQ(result, "olleh");
 }
 
-TEST(Task11_ValidHtml, EmptySequence) { EXPECT_TRUE(isValidHtml(NULL)); }
+TEST(Task12_ReverseWords, MultipleWords) {
+  char result[100];
+  reverseWords("hello world", result);
+  EXPECT_STREQ(result, "olleh dlrow");
 
-TEST(Task11_ValidHtml, ComplexSequences) {
-  EXPECT_TRUE(
-      isValidHtml("html", "body", "div", "/div", "/body", "/html", NULL));
-  EXPECT_TRUE(isValidHtml("div", "/div", "p", "/p", "span", "/span", NULL));
-  EXPECT_FALSE(
-      isValidHtml("div", "body", "span", "/body", "/span", "/div", NULL));
-  EXPECT_FALSE(isValidHtml("div", "div", "div", "/div", "/div", NULL));
+  reverseWords("the quick brown", result);
+  EXPECT_STREQ(result, "eht kciuq nworb");
 }
 
-// ========== Задание 12: Нормализация Windows пути (5 баллов) ==========
-TEST(Task12_NormalizeWindowsPath, BasicPaths) {
-  char normalized[256];
-
-  normalizeWindowsPath("C:\\Users\\user", normalized);
-  EXPECT_STREQ(normalized, "C:\\Users\\user");
-
-  normalizeWindowsPath("D:\\", normalized);
-  EXPECT_STREQ(normalized, "D:\\");
+TEST(Task12_ReverseWords, WithMultipleSpaces) {
+  char result[100];
+  reverseWords("hello  world", result);
+  EXPECT_STREQ(result, "olleh  dlrow");
 }
 
-TEST(Task12_NormalizeWindowsPath, WithCurrentDirectory) {
-  char normalized[256];
-
-  normalizeWindowsPath("C:\\.\\", normalized);
-  EXPECT_STREQ(normalized, "C:\\");
-
-  normalizeWindowsPath("C:\\a\\.\\b", normalized);
-  EXPECT_STREQ(normalized, "C:\\a\\b");
-
-  normalizeWindowsPath("C:\\a\\.\\b\\.\\c", normalized);
-  EXPECT_STREQ(normalized, "C:\\a\\b\\c");
+TEST(Task12_ReverseWords, LeadingTrailingSpaces) {
+  char result[100];
+  reverseWords("  hello  ", result);
+  EXPECT_STREQ(result, "  olleh  ");
 }
 
-TEST(Task12_NormalizeWindowsPath, WithParentDirectory) {
-  char normalized[256];
-
-  normalizeWindowsPath("C:\\a\\b\\..\\c", normalized);
-  EXPECT_STREQ(normalized, "C:\\a\\c");
-
-  normalizeWindowsPath("C:\\a\\..\\b", normalized);
-  EXPECT_STREQ(normalized, "C:\\b");
-
-  normalizeWindowsPath("C:\\a\\b\\c\\..\\..\\d", normalized);
-  EXPECT_STREQ(normalized, "C:\\a\\d");
+// ========== Задание 13: Палиндром без учета регистра (1 балл) ==========
+TEST(Task13_IsPalindromeIgnoreCase, EmptyString) {
+  EXPECT_TRUE(isPalindromeIgnoreCase(""));
 }
 
-TEST(Task12_NormalizeWindowsPath, WithTrailingSlashes) {
-  char normalized[256];
-
-  normalizeWindowsPath("C:\\a\\b\\\\", normalized);
-  EXPECT_STREQ(normalized, "C:\\a\\b");
-
-  normalizeWindowsPath("C:\\a\\\\\\b", normalized);
-  EXPECT_STREQ(normalized, "C:\\a\\b");
+TEST(Task13_IsPalindromeIgnoreCase, SingleChar) {
+  EXPECT_TRUE(isPalindromeIgnoreCase("a"));
+  EXPECT_TRUE(isPalindromeIgnoreCase("A"));
 }
 
-TEST(Task12_NormalizeWindowsPath, ComplexCases) {
-  char normalized[256];
-
-  normalizeWindowsPath("C:\\a\\b\\..\\c\\.\\d\\\\", normalized);
-  EXPECT_STREQ(normalized, "C:\\a\\c\\d");
-
-  normalizeWindowsPath("D:\\home\\.\\user\\..\\admin\\.\\docs", normalized);
-  EXPECT_STREQ(normalized, "D:\\home\\admin\\docs");
-
-  normalizeWindowsPath("C:\\..\\", normalized);
-  EXPECT_STREQ(normalized, "C:\\");
-
-  normalizeWindowsPath("C:\\a\\b\\..\\..\\", normalized);
-  EXPECT_STREQ(normalized, "C:\\");
+TEST(Task13_IsPalindromeIgnoreCase, SimplePalindromes) {
+  EXPECT_TRUE(isPalindromeIgnoreCase("aba"));
+  EXPECT_TRUE(isPalindromeIgnoreCase("Aba"));
+  EXPECT_TRUE(isPalindromeIgnoreCase("ABA"));
+  EXPECT_TRUE(isPalindromeIgnoreCase("racecar"));
+  EXPECT_TRUE(isPalindromeIgnoreCase("RaceCar"));
 }
 
-TEST(Task12_NormalizeWindowsPath, MultipleParentDirectories) {
-  char normalized[256];
-
-  normalizeWindowsPath("C:\\a\\b\\c\\..\\..\\..\\d", normalized);
-  EXPECT_STREQ(normalized, "C:\\d");
-
-  normalizeWindowsPath("C:\\a\\b\\..\\c\\..\\d", normalized);
-  EXPECT_STREQ(normalized, "C:\\a\\d");
+TEST(Task13_IsPalindromeIgnoreCase, WithSpaces) {
+  EXPECT_TRUE(isPalindromeIgnoreCase("a b a"));
+  EXPECT_TRUE(isPalindromeIgnoreCase("A man a Plan"));
+  EXPECT_TRUE(isPalindromeIgnoreCase("race car"));
 }
 
-TEST(Task13_ReversePolishNotation, BasicExpressions) {
-  EXPECT_EQ(reversePolishNotation("3 4 +"), 7);
-  EXPECT_EQ(reversePolishNotation("10 2 -"), 8);
-  EXPECT_EQ(reversePolishNotation("5 6 *"), 30);
-  EXPECT_EQ(reversePolishNotation("8 4 /"), 2);
+TEST(Task13_IsPalindromeIgnoreCase, NotPalindromes) {
+  EXPECT_FALSE(isPalindromeIgnoreCase("hello"));
+  EXPECT_FALSE(isPalindromeIgnoreCase("world"));
+  EXPECT_FALSE(isPalindromeIgnoreCase("test"));
 }
 
-TEST(Task13_ReversePolishNotation, ComplexExpressions) {
-
-  EXPECT_EQ(reversePolishNotation("3 4 + 2 * 7 /"), 2);
-
-  EXPECT_EQ(reversePolishNotation("5 1 2 + 4 * + 3 -"), 14);
-
-  EXPECT_EQ(reversePolishNotation("10 2 8 * + 3 -"), 23);
+// ========== Задание 14: Подсчет слов (1 балл) ==========
+TEST(Task14_CountWords, EmptyString) {
+  EXPECT_EQ(countWords(""), 0);
+  EXPECT_EQ(countWords("   "), 0);
 }
 
-TEST(Task13_ReversePolishNotation, SingleNumber) {
-  EXPECT_EQ(reversePolishNotation("42"), 42);
+TEST(Task14_CountWords, SingleWord) {
+  EXPECT_EQ(countWords("hello"), 1);
+  EXPECT_EQ(countWords("  hello  "), 1);
 }
 
-TEST(Task13_ReversePolishNotation, DivisionByZero) {
-  EXPECT_EQ(reversePolishNotation("8 0 /"), 0);
+TEST(Task14_CountWords, MultipleWords) {
+  EXPECT_EQ(countWords("hello world"), 2);
+  EXPECT_EQ(countWords("the quick brown fox"), 4);
+  EXPECT_EQ(countWords("  hello   world  "), 2);
 }
 
-TEST(Task13_ReversePolishNotation, NegativeNumbers) {
-  EXPECT_EQ(reversePolishNotation("-3 -4 +"), -7);
-  EXPECT_EQ(reversePolishNotation("10 -2 -"), 12);
-  EXPECT_EQ(reversePolishNotation("-5 6 *"), -30);
-  EXPECT_EQ(reversePolishNotation("8 -4 /"), -2);
+TEST(Task14_CountWords, WithTabs) {
+  EXPECT_EQ(countWords("hello\tworld"), 2);
+  EXPECT_EQ(countWords("\thello\t\tworld\t"), 2);
 }
 
-TEST(Task13_ReversePolishNotation, MixedOperations) {
-  EXPECT_EQ(reversePolishNotation("2 3 + 5 * 6 -"), 19);
-  EXPECT_EQ(reversePolishNotation("4 2 / 3 + 7 *"), 35);
+// ========== Задание 15: Анаграммы (1.5 балла) ==========
+TEST(Task15_IsAnagram, EmptyStrings) {
+  EXPECT_TRUE(isAnagram("", ""));
 }
 
-TEST(Task13_ReversePolishNotation, MultipleDigitNumbers) {
-  EXPECT_EQ(reversePolishNotation("12 34 +"), 46);
-  EXPECT_EQ(reversePolishNotation("100 25 -"), 75);
-  EXPECT_EQ(reversePolishNotation("15 3 *"), 45);
-  EXPECT_EQ(reversePolishNotation("144 12 /"), 12);
+TEST(Task15_IsAnagram, SimpleAnagrams) {
+  EXPECT_TRUE(isAnagram("listen", "silent"));
+  EXPECT_TRUE(isAnagram("evil", "vile"));
+  EXPECT_TRUE(isAnagram("abc", "bca"));
+}
+
+TEST(Task15_IsAnagram, IgnoreCase) {
+  EXPECT_TRUE(isAnagram("Listen", "Silent"));
+  EXPECT_TRUE(isAnagram("LISTEN", "silent"));
+}
+
+TEST(Task15_IsAnagram, IgnoreSpaces) {
+  EXPECT_TRUE(isAnagram("a gentleman", "elegant man"));
+  EXPECT_TRUE(isAnagram("conversation", "voices rant on"));
+}
+
+TEST(Task15_IsAnagram, NotAnagrams) {
+  EXPECT_FALSE(isAnagram("hello", "world"));
+  EXPECT_FALSE(isAnagram("test", "testing"));
+  EXPECT_FALSE(isAnagram("abc", "abcd"));
+}
+
+// ========== Задание 16: Общий префикс (3 балла) ==========
+TEST(Task16_LongestCommonPrefix, NullTerminated) {
+  char result[100];
+  longestCommonPrefix(result, NULL);
+  EXPECT_STREQ(result, "");
+}
+
+TEST(Task16_LongestCommonPrefix, SingleString) {
+  char result[100];
+  longestCommonPrefix(result, "hello", NULL);
+  EXPECT_STREQ(result, "hello");
+}
+
+TEST(Task16_LongestCommonPrefix, CommonPrefix) {
+  char result[100];
+  longestCommonPrefix(result, "flower", "flow", "flight", NULL);
+  EXPECT_STREQ(result, "fl");
+
+  longestCommonPrefix(result, "dog", "racecar", "car", NULL);
+  EXPECT_STREQ(result, "");
+
+  longestCommonPrefix(result, "test", "testing", "tester", NULL);
+  EXPECT_STREQ(result, "test");
+}
+
+TEST(Task16_LongestCommonPrefix, NoCommonPrefix) {
+  char result[100];
+  longestCommonPrefix(result, "abc", "def", "ghi", NULL);
+  EXPECT_STREQ(result, "");
+}
+
+TEST(Task16_LongestCommonPrefix, AllIdentical) {
+  char result[100];
+  longestCommonPrefix(result, "hello", "hello", "hello", NULL);
+  EXPECT_STREQ(result, "hello");
+}
+
+// ========== Задание 17: RLE сжатие (3 балла) ==========
+TEST(Task17_CompressString, EmptyString) {
+  char result[100];
+  compressString("", result);
+  EXPECT_STREQ(result, "");
+}
+
+TEST(Task17_CompressString, NoRepeats) {
+  char result[100];
+  compressString("abc", result);
+  EXPECT_STREQ(result, "abc");
+
+  compressString("abcdef", result);
+  EXPECT_STREQ(result, "abcdef");
+}
+
+TEST(Task17_CompressString, AllSame) {
+  char result[100];
+  compressString("aaaa", result);
+  EXPECT_STREQ(result, "a4");
+
+  compressString("bbbbb", result);
+  EXPECT_STREQ(result, "b5");
+}
+
+TEST(Task17_CompressString, MixedRepeats) {
+  char result[100];
+  compressString("aaabbcccc", result);
+  EXPECT_STREQ(result, "a3b2c4");
+
+  compressString("aabccc", result);
+  EXPECT_STREQ(result, "a2bc3");
+
+  compressString("wwwwaaadexxxxxx", result);
+  EXPECT_STREQ(result, "w4a3dex6");
+}
+
+// ========== Задание 18: Калькулятор (4 балла) ==========
+TEST(Task18_CalculateExpression, SimpleAddition) {
+  EXPECT_EQ(calculateExpression("2 + 3"), 5);
+  EXPECT_EQ(calculateExpression("10 + 5"), 15);
+}
+
+TEST(Task18_CalculateExpression, SimpleSubtraction) {
+  EXPECT_EQ(calculateExpression("10 - 3"), 7);
+  EXPECT_EQ(calculateExpression("5 - 2"), 3);
+}
+
+TEST(Task18_CalculateExpression, SimpleMultiplication) {
+  EXPECT_EQ(calculateExpression("3 * 4"), 12);
+  EXPECT_EQ(calculateExpression("5 * 6"), 30);
+}
+
+TEST(Task18_CalculateExpression, SimpleDivision) {
+  EXPECT_EQ(calculateExpression("10 / 2"), 5);
+  EXPECT_EQ(calculateExpression("20 / 4"), 5);
+}
+
+TEST(Task18_CalculateExpression, OperatorPrecedence) {
+  EXPECT_EQ(calculateExpression("2 + 3 * 4"), 14);
+  EXPECT_EQ(calculateExpression("10 - 2 * 3"), 4);
+  EXPECT_EQ(calculateExpression("20 / 4 + 3"), 8);
+}
+
+TEST(Task18_CalculateExpression, WithParentheses) {
+  EXPECT_EQ(calculateExpression("(2 + 3) * 4"), 20);
+  EXPECT_EQ(calculateExpression("(10 - 2) * 3"), 24);
+  EXPECT_EQ(calculateExpression("20 / (4 + 1)"), 4);
+}
+
+TEST(Task18_CalculateExpression, ComplexExpressions) {
+  EXPECT_EQ(calculateExpression("2 + 3 * 4 - 5"), 9);
+  EXPECT_EQ(calculateExpression("(2 + 3) * (4 - 2)"), 10);
+  EXPECT_EQ(calculateExpression("10 / 2 + 3 * 4"), 17);
+}
+
+// ========== Задание 19: Валидация email (5 баллов) ==========
+TEST(Task19_ValidateEmail, ValidEmails) {
+  EXPECT_TRUE(validateEmail("user@example.com"));
+  EXPECT_TRUE(validateEmail("test@test.org"));
+  EXPECT_TRUE(validateEmail("name.surname@domain.com"));
+  EXPECT_TRUE(validateEmail("user_name@example.co.uk"));
+  EXPECT_TRUE(validateEmail("user-name@test-domain.com"));
+}
+
+TEST(Task19_ValidateEmail, InvalidEmails_NoAt) {
+  EXPECT_FALSE(validateEmail("invalid.email.com"));
+  EXPECT_FALSE(validateEmail("nodomain"));
+}
+
+TEST(Task19_ValidateEmail, InvalidEmails_MultipleAt) {
+  EXPECT_FALSE(validateEmail("user@@example.com"));
+  EXPECT_FALSE(validateEmail("user@test@example.com"));
+}
+
+TEST(Task19_ValidateEmail, InvalidEmails_NoDomain) {
+  EXPECT_FALSE(validateEmail("user@"));
+  EXPECT_FALSE(validateEmail("@example.com"));
+}
+
+TEST(Task19_ValidateEmail, InvalidEmails_NoDot) {
+  EXPECT_FALSE(validateEmail("user@examplecom"));
+  EXPECT_FALSE(validateEmail("user@example"));
+}
+
+TEST(Task19_ValidateEmail, InvalidEmails_ShortDomain) {
+  EXPECT_FALSE(validateEmail("user@example.c"));
+  EXPECT_FALSE(validateEmail("user@test.a"));
+}
+
+// ========== Задание 20: Самая длинная палиндромная подстрока (5 баллов) ==========
+TEST(Task20_LongestPalindromicSubstring, SingleChar) {
+  EXPECT_EQ(longestPalindromicSubstring("a"), 1);
+  EXPECT_EQ(longestPalindromicSubstring("b"), 1);
+}
+
+TEST(Task20_LongestPalindromicSubstring, EntirePalindrome) {
+  EXPECT_EQ(longestPalindromicSubstring("aba"), 3);
+  EXPECT_EQ(longestPalindromicSubstring("racecar"), 7);
+}
+
+TEST(Task20_LongestPalindromicSubstring, MiddlePalindrome) {
+  EXPECT_EQ(longestPalindromicSubstring("babad"), 3); // "bab" or "aba"
+  EXPECT_EQ(longestPalindromicSubstring("cbbd"), 2);  // "bb"
+}
+
+TEST(Task20_LongestPalindromicSubstring, NoPalindrome) {
+  EXPECT_EQ(longestPalindromicSubstring("abc"), 1);
+  EXPECT_EQ(longestPalindromicSubstring("abcd"), 1);
+}
+
+TEST(Task20_LongestPalindromicSubstring, ComplexCases) {
+  EXPECT_EQ(longestPalindromicSubstring("bananas"), 5); // "anana"
+  EXPECT_EQ(longestPalindromicSubstring("forgeeksskeegfor"), 10); // "geeksskeeg"
+  EXPECT_EQ(longestPalindromicSubstring("abcdefggfedcba"), 14); // entire
 }

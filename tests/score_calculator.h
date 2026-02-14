@@ -33,27 +33,40 @@ private:
   TestEventListener *defaultListener_;
 
   void initializeTasks() {
-    tasks_["Task01_Sub"] = TaskInfo("Задание 1: Разность двух чисел", 0.5);
-    tasks_["Task02_Summ"] = TaskInfo("Задание 2: Сумма N чисел", 0.5);
-    tasks_["Task03_IsPerfect"] =
-        TaskInfo("Задание 3: Проверка на совершенное число", 0.5);
-    tasks_["Task04_FindMin"] = TaskInfo("Задание 4: Минимальный элемент", 0.5);
-    tasks_["Task05_ToUpperString"] =
-        TaskInfo("Задание 5: Преобразование в заглавные", 0.5);
-    tasks_["Task06_IsPalindrome"] =
-        TaskInfo("Задание 6: Проверка на палиндром", 0.5);
-    tasks_["Task07_BubbleSort"] =
-        TaskInfo("Задание 7: Сортировка пузырьком", 0.5);
-    tasks_["Task08_HCF"] = TaskInfo("Задание 8: НОК двух чисел", 0.5);
-    tasks_["Task09_Catalan"] = TaskInfo("Задание 9: Число Каталана", 0.5);
-    tasks_["Task10_IntToOctalString"] =
-        TaskInfo("Задание 10: Восьмеричная строка", 0.5);
-    tasks_["Task11_ValidHtml"] =
-        TaskInfo("Задание 11: Проверка HTML тегов", 5.0);
-    tasks_["Task12_NormalizeWindowsPath"] =
-        TaskInfo("Задание 12: Нормализация Windows пути", 5.0);
-    tasks_["Task13_ReversePolishNotation"] =
-        TaskInfo("Задание 13: Обратная польская нотация", 10.0);
+    // Простые задания (15 заданий)
+    tasks_["Task01_StringLength"] = TaskInfo("Задание 1: Длина строки", 0.5);
+    tasks_["Task02_StringCopy"] =
+        TaskInfo("Задание 2: Копирование строки", 0.5);
+    tasks_["Task03_StringConcat"] =
+        TaskInfo("Задание 3: Конкатенация строк", 0.5);
+    tasks_["Task04_StringCompare"] =
+        TaskInfo("Задание 4: Сравнение строк", 0.5);
+    tasks_["Task05_CountChar"] = TaskInfo("Задание 5: Подсчет символа", 0.5);
+    tasks_["Task06_CountVowels"] = TaskInfo("Задание 6: Подсчет гласных", 0.5);
+    tasks_["Task07_RemoveSpaces"] =
+        TaskInfo("Задание 7: Удаление пробелов", 0.5);
+    tasks_["Task08_FirstWordLength"] =
+        TaskInfo("Задание 8: Длина первого слова", 0.5);
+    tasks_["Task09_FindSubstring"] =
+        TaskInfo("Задание 9: Поиск подстроки", 0.5);
+    tasks_["Task10_ReplaceChar"] = TaskInfo("Задание 10: Замена символа", 0.5);
+    tasks_["Task11_TrimString"] = TaskInfo("Задание 11: Trim строки", 0.5);
+    tasks_["Task12_ReverseWords"] = TaskInfo("Задание 12: Переворот слов", 1.0);
+    tasks_["Task13_IsPalindromeIgnoreCase"] =
+        TaskInfo("Задание 13: Палиндром (игнор регистра)", 1.0);
+    tasks_["Task14_CountWords"] = TaskInfo("Задание 14: Подсчет слов", 1.0);
+    tasks_["Task15_IsAnagram"] = TaskInfo("Задание 15: Проверка анаграмм", 1.5);
+
+    // Сложные задания (5 заданий)
+    tasks_["Task16_LongestCommonPrefix"] =
+        TaskInfo("Задание 16: Общий префикс", 3.0);
+    tasks_["Task17_CompressString"] = TaskInfo("Задание 17: RLE сжатие", 3.0);
+    tasks_["Task18_CalculateExpression"] =
+        TaskInfo("Задание 18: Калькулятор", 4.0);
+    tasks_["Task19_ValidateEmail"] =
+        TaskInfo("Задание 19: Валидация email", 5.0);
+    tasks_["Task20_LongestPalindromicSubstring"] =
+        TaskInfo("Задание 20: Самая длинная палиндромная подстрока", 5.0);
   }
 
   std::string getTaskPrefix(const std::string &testSuiteName) const {
@@ -193,11 +206,11 @@ private:
 
     // Оценка
     std::string grade;
-    if (totalScore >= 20.0)
+    if (totalScore >= 25.0)
       grade = "ОТЛИЧНО (5)";
-    else if (totalScore >= 15.0)
+    else if (totalScore >= 20.0)
       grade = "ХОРОШО (4)";
-    else if (totalScore >= 10.0)
+    else if (totalScore >= 15.0)
       grade = "УДОВЛЕТВОРИТЕЛЬНО (3)";
     else
       grade = "НЕУДОВЛЕТВОРИТЕЛЬНО (2)";
